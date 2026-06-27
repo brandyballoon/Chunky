@@ -79,7 +79,8 @@ public class BossBarTaskUpdateListener implements Consumer<GenerationTaskUpdateE
             return true;
         }
         if (HAS_PERMISSIONS) {
-            return Permissions.check(player, "chunky.command", 2);
+            return (Permissions.check(player, "chunky.command", 2)
+                    || Permissions.check(player, "chunky.progressbar", 2));
         }
         return player.permissions().hasPermission(net.minecraft.server.permissions.Permissions.COMMANDS_GAMEMASTER);
     }
