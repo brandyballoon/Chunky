@@ -41,8 +41,11 @@ public class BossBarTaskUpdateListener implements Consumer<GenerationTaskUpdateE
         }
         final MinecraftServer server = neoForgeWorld.getWorld().getServer();
         for (final ServerPlayer player : server.getPlayerList().getPlayers()) {
-            // Removed permissions check
-            bossBar.addPlayer(player);
+            if (player.permissions().hasPermission(Permissions.COMMANDS_GAMEMASTER)) {
+                bossBar.addPlayer(player);
+            } else {
+                bossBar.removePlayer(player);
+            }
         }
         final GenerationTask.Progress progress = task.getProgress();
         bossBar.setName(Component.nullToEmpty(String.format("%s | %s%% | %s:%s:%s",
